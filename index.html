@@ -77,7 +77,7 @@
   <!-- Android -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#333333">
-  <script src="static/js/socket.io.js" type="text/javascript"></script>
+  <script src="https://dpt.emath.tw:443/socket.io/socket.io.js" type="text/javascript"></script>
   <style>
     .flexblock li h2 {
       font-size: 25px;
@@ -160,7 +160,7 @@
   <script>
     const ws = new WebSlides();
     var nodejs_server = "dpt.emath.tw:443";
-    var socket = io.connect("http://" + nodejs_server);
+    var socket = io.connect("https://" + nodejs_server);
     $(window).load(function () {
       // check danmu socket connected 
       socket.emit('say', { msg: "歡迎使用彈幕系統" });
