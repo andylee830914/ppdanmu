@@ -175,6 +175,10 @@
         FontSizeBig: 40,
       });
       $('#danmu').danmu('danmuStart');
+      socket.on("room_create",function(data){
+        console.log(data.id);
+
+      });
       socket.on("say", function (data) {
         if ($('#danmu').data("paused")) {
           nowtime = 0;
@@ -191,6 +195,7 @@
 
     function ppturl() {
       url = encodeURIComponent($("#url").val())
+      socket.emit('room', { msg: url });
       console.log("https://view.officeapps.live.com/op/embed.aspx?src=" + url);
       $("#pptframe").attr('src', "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
     }
