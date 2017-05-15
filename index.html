@@ -164,7 +164,6 @@
     var socket = io.connect("https://" + nodejs_server);
     $(window).load(function () {
       // check danmu socket connected 
-      socket.emit('say', { msg: "歡迎使用彈幕系統" });
     });
     $(document).ready(function () {
       $("#danmu").danmu({
@@ -177,7 +176,8 @@
       $('#danmu').danmu('danmuStart');
       socket.on("room_create",function(data){
         console.log(data.id);
-
+        socket.emit('say', { msg: "歡迎使用彈幕系統" });
+        
       });
       socket.on("say", function (data) {
         if ($('#danmu').data("paused")) {

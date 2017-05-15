@@ -19,7 +19,7 @@ var io = require('socket.io').listen(server);
 io.on('connection', function (socket) {
     console.log('hello');
     socket.on('room',function(data){
-        url = data.url;
+        url = data.msg;
         token = url.toString('hex');
         socket['room'] = token;
         io.sockets.emit('room_create', { id: token });
