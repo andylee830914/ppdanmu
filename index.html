@@ -128,7 +128,7 @@
         <div class="wrap">
           <h2>連上這個網站</h2>
           <figure>
-            <img src="static/images/chart.png" class="size-25">
+            <img id="qrcode" src="" class="size-25">
           </figure>
         </div>
         <!-- .end .wrap -->
@@ -177,6 +177,8 @@
       socket.on("room_create",function(data){
         console.log(data.id);
         socket.emit('say', { msg: "歡迎使用彈幕系統" });
+        qrurl = "https://andylee830914.github.io/ppdanmu/remote.html?id="+data.id;
+        $("#qrcode").attr('src','https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl='+ qrurl);
         
       });
       socket.on("say", function (data) {
