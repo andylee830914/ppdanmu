@@ -23,8 +23,9 @@ io.on('connection', function (socket) {
         url = data.msg;
         token = crypto.createHash('sha1').update(url).digest("hex");
         socket['room'] = token;
-        io.sockets.emit('room_create', { id: token });
         socket.join(socket['room']);
+        io.to(socket['room']).emit('room_create', { id: token });
+        
     });
 
     socket.on('join',function(data){
