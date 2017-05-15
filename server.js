@@ -1,5 +1,6 @@
 var https = require('https');
 var fs = require('fs');   
+const crypto = require('crypto');
 const httpsOptions = {
     key: fs.readFileSync('/etc/letsencrypt/live/dpt.emath.tw/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/dpt.emath.tw/cert.pem'),
@@ -20,10 +21,16 @@ io.on('connection', function (socket) {
     console.log('hello');
     socket.on('room',function(data){
         url = data.msg;
-        token = url.toString('hex');
+        token = crypto.createHash('sha1').update(url).digest("hex");
         socket['room'] = token;
         io.sockets.emit('room_create', { id: token });
         socket.join(socket['room']);
+    });
+
+    socket.on('join',function(data){
+        socket['room'] = data;        
+        socket.join(socket['room']);
+        console.log('join!');
     });
     socket.on('say', function (data) {
         io.to(socket['room']).emit('say', data);

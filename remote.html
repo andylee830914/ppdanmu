@@ -56,6 +56,15 @@
     var nodejs_server = "dpt.emath.tw:443";       
         // 進行 connect
     var socket = io.connect("https://" + nodejs_server);
+    function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
     function sent(e,btn){
         key = window.event ? e.keyCode : e.which;
         if(key == 13 || btn == 1){
@@ -66,6 +75,11 @@
             $("#chatinput").val("");
         }
     }
+
+    $(document).ready(function () {
+        roomid=getParameterByName("id");
+        socket.emit('join', roomid);
+    });
 
 
 </script>
