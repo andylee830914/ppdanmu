@@ -101,6 +101,9 @@
     p {
       font-size: 23px;
     }
+    /*iframe:-webkit-full-screen {
+      z-index: 900 !important;
+    }*/
   </style>
 
 </head>
@@ -119,7 +122,7 @@
           <h3>PPDanmu</h3>          
           <fieldset>
             <!--https://andylee830914.github.io/ppdanmu/demo.pptx-->
-            <p><input id="url" placeholder="請輸入簡報網址"></p>
+            <p><input id="url" placeholder="請輸入簡報網址" value="https://andylee830914.github.io/Learning_LaTeX/latex_01_install.pdf"></p>
             <p><input class="button" type="button" id="mybutton" value="設定簡報" onclick=ppturl()></p>
           </fieldset>
         </div>
@@ -136,7 +139,7 @@
       </section>
       <section class="bg-black fullscreen">
         <div class="embed">
-          <iframe id="pptframe" src="">
+          <iframe id="pptframe" src="" height="100%" allowfullscreen>
           </iframe>
         </div>
       </section>
@@ -170,7 +173,7 @@
       $("#danmu").danmu({
         width: "100%",
         height: "20%",
-        zindex: 10,
+        zindex: 2147483647,
         fontSizeSmall: 30,
         FontSizeBig: 40,
       });
@@ -194,13 +197,27 @@
         console.log(aDanmu);
         $('#danmu').danmu("addDanmu", aDanmu);
       });
+      if($("#pptframe").attr('src')==""){
+        window.location=window.location.href.split('#')[0]+'#slide=1';
+      }
     });
 
     function ppturl() {
       url = encodeURIComponent($("#url").val())
       socket.emit('room', { msg: url });
-      console.log("https://view.officeapps.live.com/op/embed.aspx?src=" + url);
-      $("#pptframe").attr('src', "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
+      if(url.substr(-3)=='pdf'){
+        $("#pptframe").attr('src', $("#url").val()+"#toolbar=0&navpanes=0&scrollbar=0&view=FitH");        
+        // $("#pptframe").attr('src', window.location.pathname+"pdf/web/viewer.html?file="+$("#url").val()+"#toolbar=0&navpanes=0&scrollbar=0&view=fitH");
+        // $("#pptframe").attr('src', "http://mozilla.github.io/pdf.js/web/viewer.html?file="+$("#url").val()+"#toolbar=0&navpanes=0&scrollbar=0&view=fitH");
+        // $("#pptframe").attr('src', "https://docs.google.com/gview?url=" + $("#url").val()+"&embedded=true");  
+      }else{
+        $("#pptframe").attr('src', "https://view.officeapps.live.com/op/embed.aspx?src=" + url);  
+      }
+    }
+    function goFullScreen() {     
+        x=$("#pptframe").contents();
+        x.find('#presentationMode').click();
+        x.find('#viewer').attr('style', 'z-index:10 !important');
     }
   </script>
 
