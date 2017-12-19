@@ -77,7 +77,10 @@
         roomid=getParameterByName("id");
         socket.emit('join', roomid);
     });
-
+    socket.on('reconnect', (attemptNumber) => {
+        roomid = getParameterByName("id");
+        socket.emit('join', roomid);
+    });
 
 </script>
 
