@@ -2,7 +2,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 const crypto = require('crypto');
-server.listen(80);
+var port = process.env.PORT || 8080;
+server.listen(port);
 
 
 var request = require('request');
