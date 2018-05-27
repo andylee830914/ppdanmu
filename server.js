@@ -1,13 +1,8 @@
-var https = require('https');
+var http = require('http');
 var fs = require('fs');   
 const crypto = require('crypto');
-const httpsOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/dpt.emath.tw/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/dpt.emath.tw/cert.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/dpt.emath.tw/chain.pem')
-};
 
-var server = https.createServer(httpsOptions, (req, res) => {
+var server = http.createServer((req, res) => {
     res.writeHead(200);
     res.end('hello world\n');
 }).listen(8800);
