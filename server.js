@@ -1,16 +1,16 @@
-var http = require('http');
-var fs = require('fs');   
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 const crypto = require('crypto');
+server.listen(80);
 
-var server = http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end('hello world\n');
-}).listen(8800);
 
 var request = require('request');
 console.log("Hello World");
 
-var io = require('socket.io').listen(server);
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/remote.html');
+});
 
 io.on('connection', function (socket) {
     console.log('hello');
