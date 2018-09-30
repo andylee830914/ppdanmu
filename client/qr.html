@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello World!</title>
+        <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+        <script src="static/js/jquery.min.js"></script>
+        <script>
+        var electron = require('electron');
+        var currentWindow = electron.remote.getCurrentWindow();
+        token = currentWindow.custom.token;
+        qrurl = "https://ppdanmu.herokuapp.com?id=" + token;
+        url = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=' + qrurl
+        $(document).ready(function () {
+            $('#qrcode').attr("src", url);
+            
+        });
+        </script>
+        <style>
+            body {
+                overflow-x: hidden;
+                overflow-y: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <img id="qrcode" src="" width="100%">
+    </body>
+</html>
