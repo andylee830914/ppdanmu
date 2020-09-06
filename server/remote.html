@@ -34,6 +34,7 @@
 <div class="container">
     <h2>一直玩一直玩</h2>
     <p>使用說明：用彈幕蓋滿投影片就對了！</p>
+    <input id="nameinput" class="form-control">
     <div style="margin: 0px auto;padding-top:10px;" onkeypress="sent(event,0)" class="input-group col-xs-12 col-md-8">
         <input id="chatinput" class="form-control">
             <span class="input-group-btn">
@@ -44,13 +45,14 @@
 </div>
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">© 2017 NCKU MATH</p>
+        <p class="text-muted">© 2020 NCKU MATH</p>
     </div>
 </footer>
 </body>
 
 <script type="text/javascript">
     var socket = io.connect("https://ppdanmu.herokuapp.com");
+    var sanguo = ["諸葛亮","趙雲","關羽","司馬懿","周瑜","郭嘉","呂布","馬超","曹操","張飛"];
     function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -66,12 +68,20 @@
             if($("#chatinput").val()=="") return;
             var content=$("#chatinput").val();
             content=content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            content= $("#nameinput").val()+"："+content;
             socket.emit('say', {msg: content});
             $("#chatinput").val("");
         }
     }
 
     $(document).ready(function () {
+        var userName = getParameterByName("user");
+        if (userName) {
+            $("#nameinput").val(userName);
+        } else {
+            var random = Math.floor(Math.random() * sanguo.length);
+            $("#nameinput").val(sanguo[random]);
+        }
         roomid=getParameterByName("id");
         socket.emit('join', roomid);
     });
