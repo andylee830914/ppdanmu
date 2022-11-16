@@ -6,9 +6,14 @@
         "node-machine-id": "^1.1.10"
     },
     "devDependencies": {
-        "electron": "^21.2.3"
+        "electron": "^21.2.3",
+        "electron-builder": "^23.6.0"
     },
     "scripts": {
-      "start": "electron ."
+        "start": "electron .",
+        "app:dist": "electron-builder -wm"
+    },
+    "build": {
+        "appId": "tw.andylee.ppdanmu"
     }
 }
