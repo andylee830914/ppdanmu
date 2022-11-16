@@ -10,7 +10,7 @@ var request = require('request');
 console.log("Hello World");
 
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/remote.html');
+    res.sendFile(__dirname + '/remote.html');
 });
 
 io.on('connection', function (socket) {

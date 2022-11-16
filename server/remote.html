@@ -11,7 +11,7 @@
     crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
-    <script src="https://ppdanmu.herokuapp.com/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="https://ppdanmu.andylee.tw/socket.io/socket.io.js" type="text/javascript"></script>
     <style type="text/css">
         .footer {
             position: absolute;
@@ -51,7 +51,7 @@
 </body>
 
 <script type="text/javascript">
-    var socket = io.connect("https://ppdanmu.herokuapp.com");
+    var socket = io.connect("https://ppdanmu.andylee.tw");
     var sanguo = ["諸葛亮","趙雲","關羽","司馬懿","周瑜","郭嘉","呂布","馬超","曹操","張飛"];
     function getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -68,7 +68,9 @@
             if($("#chatinput").val()=="") return;
             var content=$("#chatinput").val();
             content=content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            content= $("#nameinput").val()+"："+content;
+            if ($("#nameinput").val()){
+                content = $("#nameinput").val() + "：" + content;
+            }
             socket.emit('say', {msg: content});
             $("#chatinput").val("");
         }
