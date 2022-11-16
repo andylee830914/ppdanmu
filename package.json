@@ -1,9 +1,0 @@
-{
-    "dependencies": {
-        "express": "latest",
-        "body-parser": "latest",
-        "compilex": "latest",
-        "socket.io": "^1.7.3",
-        "request": "latest"
-    }
-}
