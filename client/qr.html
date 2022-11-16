@@ -1,14 +1,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Hello World!</title>
+        <title>QR Code</title>
         <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
         <script src="static/js/jquery.min.js"></script>
         <script>
         var electron = require('electron');
-        var currentWindow = electron.remote.getCurrentWindow();
-        token = currentWindow.custom.token;
-        qrurl = "https://ppdanmu.herokuapp.com?id=" + token;
+        const params = new URLSearchParams(global.location.search);
+        token = params.get("token");
+        qrurl = "https://ppdanmu.andylee.tw?id=" + token;
         url = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=' + qrurl
         $(document).ready(function () {
             $('#qrcode').attr("src", url);

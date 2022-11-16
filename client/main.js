@@ -29,7 +29,11 @@ function createWindow() {
             width: width,
             height: height,
             transparent: true,
-            frame: false 
+            frame: false,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
         })
         
     }else{
@@ -39,25 +43,31 @@ function createWindow() {
             width: width, 
             height: height, 
             transparent: true, 
-            frame: false})
+            frame: false,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        })
         
-    }
-    win.custom = {
-        'mid' : machineIdSync()
     }
     win.setIgnoreMouseEvents(true)
     win.setAlwaysOnTop(true, 'screen', 2147483631);
     win.setVisibleOnAllWorkspaces(true);
     // win.setFullScreenable(false);
+
+    // Open the DevTools.
+    // win.webContents.openDevTools()
     // and load the index.html of the app.
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
-        slashes: true
+        slashes: true,
+        query: {
+            mid: machineIdSync()
+        }
     }))
 
-    // Open the DevTools.
-    // win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -96,15 +106,19 @@ function createQR() {
     const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
     qrwin= new BrowserWindow({
         width: 500,
-        height: 500
+        height: 500,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     })
-    qrwin.custom = {
-        'token': token
-    };
     qrwin.loadURL(url.format({
         pathname: path.join(__dirname, 'qr.html'),
         protocol: 'file:',
-        slashes: true
+        slashes: true,
+        query:{
+            token:token
+        }
     }))
     console.log(token)
 
