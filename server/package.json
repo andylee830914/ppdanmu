@@ -1,9 +1,10 @@
 {
     "dependencies": {
-        "express": "latest",
+        "@google-cloud/translate": "^8.0.1",
         "body-parser": "latest",
         "compilex": "latest",
-        "socket.io": "latest",
-        "request": "latest"
+        "express": "latest",
+        "request": "latest",
+        "socket.io": "latest"
     }
 }

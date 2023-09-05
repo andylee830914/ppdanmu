@@ -1,0 +1,19 @@
+{
+    "@metadata": {
+        "authors": [
+            "Yu-Hsun Lee"
+        ],
+        "last-updated": "2023-09-05",
+        "locale": "zh"
+    },
+    "title": "一直玩一直玩",
+    "intro": "使用說明：用彈幕蓋滿投影片就對了！",
+    "form_name": "暱稱",
+    "form_chat": "輸入訊息",
+    "lan_ori":"原文直送",
+    "lan_zh":"翻成中文",
+    "lan_en":"翻成英文",
+    "lan_ja":"翻成日文",
+    "lan_vi":"翻成越南文",
+    "send":"送！"
+}

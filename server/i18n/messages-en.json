@@ -1,0 +1,19 @@
+{
+    "@metadata": {
+        "authors": [
+            "Yu-Hsun Lee"
+        ],
+        "last-updated": "2023-09-05",
+        "locale": "en"
+    },
+    "title": "Danmaku(弹幕)",
+    "intro": "Usage：Enter your message and press \"Send\"!",
+    "form_name": "Name",
+    "form_chat": "Message",
+    "lan_ori": "in original text",
+    "lan_zh": "in Chinese",
+    "lan_en": "in English",
+    "lan_ja": "in Japanese",
+    "lan_vi": "in Vietnamese",
+    "send": "Send"
+}

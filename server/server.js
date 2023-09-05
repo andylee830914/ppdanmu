@@ -1,17 +1,31 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 const crypto = require('crypto');
+const { Translate } = require('@google-cloud/translate').v2;
 var port = process.env.PORT || 8080;
 server.listen(port);
 
+const GOOGLE_APPLICATION_CREDENTIALS = 'ycshu-314159.json';
+const translate = new Translate({
+    projectId: 'ycshu-314159', 
+    keyFilename: GOOGLE_APPLICATION_CREDENTIALS
+});
 
+async function translateText(text, targetLanguage) {
+    let [translations] = await translate.translate(text, targetLanguage);
+    translations = Array.isArray(translations) ? translations : [translations];
+    return translations[0];
+}
 var request = require('request');
 console.log("Hello World");
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/remote.html');
 });
+
+app.use('/i18n', express.static('i18n'))
 
 io.on('connection', function (socket) {
     console.log('hello');
@@ -30,8 +44,26 @@ io.on('connection', function (socket) {
         console.log('join!');
     });
     socket.on('say', function (data) {
-        io.to(socket['room']).emit('say', data);
-        console.log(data);
+        if (data.lan == 'ori') {
+            if (data.name) {
+                data.msg = data.name + "：" + data.msg;
+            }
+            io.to(socket['room']).emit('say', data);
+            console.log(data);
+        }else{
+            let content = data.msg;
+            translateText(content, data.lan).then(translatedText => {
+                data.msg = translatedText;
+                if (data.name) {
+                    data.msg = data.name + "：" + data.msg;
+                }
+                io.to(socket['room']).emit('say', data);
+                console.log(data);
+            }).catch(error => {
+                console.error(`Error during translation: ${error}`);
+            });
+        }
+        
     });              
 })
 
